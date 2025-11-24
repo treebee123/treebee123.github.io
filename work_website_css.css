@@ -1,1 +1,13 @@
 /* for the aesthetic */
+
+body {
+    background-color:white;
+}
+
+.absolute {
+    position:absolute;
+}
+
+.centered{
+    transform:translate(-50%, -50%);
+}
