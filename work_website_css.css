@@ -4,6 +4,30 @@ body {
     background-color:white;
 }
 
+/* ids */
+#mainTitle {
+    left:50%;
+    top:50px;
+}
+
+#leftBorder{
+    left:5%;
+/*    top:50%;*/
+}
+
+#rightBorder{
+    right:5%;
+/*    top:50%;*/
+}
+
+
+/* classes */
+.border {
+    background-color:gray;
+    height:100%;
+    width:10%;
+}
+
 .absolute {
     position:absolute;
 }
