@@ -15,7 +15,18 @@ html{
 /* ids */
 #mainTitle {
     left:50%;
-    top:50px;
+    top:50%;
+    font-weight:bold;
+}
+
+#topBar{
+    position:fixed;
+    left:10%;
+    top:0px;
+    width:80%;
+    height:125px;
+    z-index:100;
+    background-color:green;
 }
 
 #leftBorder{
