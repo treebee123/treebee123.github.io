@@ -6,17 +6,14 @@ body {
 
 *{
     font-family:monospace;
+    transition-duration:.25s;
+
+    cursor:default;
 }
 
 /* ids */
 #mainTitle {
-    margin:auto auto;
-
-    top:50%;
-    left:50%;
-
-    font-size:7.5vw;
-
+    font-size:5vw;
     font-weight:bold;
 }
 
@@ -24,14 +21,28 @@ body {
     position:fixed;
     
     left:10%;
-    top:0px;
+    top:0;
 
     width:80%;
-    aspect-ratio:7/1;
+    aspect-ratio:10/1;
     
     z-index:100;
-    
+
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
+
     background-color:white;
+}
+
+#topBar * {
+    white-space:nowrap;
+}
+
+#topBar > h2:hover {
+    color: deepskyblue;
+
+    cursor:pointer;
 }
 
 #leftBorder {
@@ -43,10 +54,12 @@ body {
 }
 
 #firstVideoHolder {
-    left:10%;
+    position:relative;
 
     width:80%;
     aspect-ratio:1.7;
+
+    margin: calc(80vw / 10 + 5vw) auto 0; /* topBar height + spacing */
 
 /*    background-color:black;*/
 }
@@ -58,11 +71,6 @@ body {
     height:100%;
 }
 
-#firstVideoText {
-    left:2.5%;
-    width:95%;
-    background-color:gainsboro;
-}
 
 
 /* classes */
@@ -80,4 +88,15 @@ body {
 
 .centered{
     transform:translate(-50%, -50%);
+}
+
+.videoText {
+    position:relative;
+    left:2.5%;
+    width:95%;
+
+    font-size:1.2vw;
+
+    text-align:center;
+/*    background-color:gainsboro;*/
 }
