@@ -19,19 +19,85 @@
         <div id="rightBorder" class="absolute border"></div>
 
 
-        <div id="firstVideoHolder">
-            <video id="firstVideo" autoplay muted loop>
-                <source src="Assets/videos/lowiceTest.mp4">
-            </video>
+        <div id="textHolder">
+            <h2 id="name" class="text" style="font-size:2vw;">Hi, I'm <span style="font-style:italic;">Ben</span></h2>
+            <p id="introText" class="text" style="margin-top:75px;">I'm an aspiring programmer, who creates and tests game mechanics - along with other things - that have spark my interest. I work to make these mechanics feel as smooth and user friendly as possible, while still having the depth of technicality that make them enjoyable to play.</p>
+            <p id="interestsText" class="text" style="margin-top:20px;">I use the Unity engine in order to make such projects, and although all my project may not yet be finished, I still takeaway at least one new skill from each one. Whether that be a networking trick or a certain interactions method.</p>
+        </div>
 
-            <p id="introText" class="videoText">My name is Ben Feltham. I'm an aspiring programmer, who creates and tests game mechanics - along with other things - that have spark my interest. I work to make these mechanics feel as smooth and user friendly as possible, while still having the depth of technicality that make them enjoyable to play.</p>
-            <p id="interestsText" class="videoText">I use the Unity engine in order to make such projects, and although every project might not get finished, I still takeaway at least one new skill from each one. Whether that be a networking trick or a certain interactions method.</p>
+        <h1 id="projectsTitle">Projects</h1>
+
+        <div id="displayProjectsContainer" style="margin-top:50px;">
+
+            <div class="displayProject">
+                <video class="displayVideo" autoplay muted loop>
+                    <source src="Assets/videos/merge/mergeVideo.mp4">
+                </video>
+
+                <h2 class="displayTitle">Idle Clicker</h2>
+                <p class="displayText">A simple idle clicker game. This project helped me understand the usefulness of static scripts and variables, as well as creating an interactable world for the player.</p>
+            </div>
+
+            <div class="displayProject">
+                <video class="displayVideo" autoplay muted loop>
+                    <source src="Assets/videos/horror/horrorVideo.mp4">
+                </video>
+
+                <h2 class="displayTitle">Procedural Dungeons</h2>
+                <p class="displayText">Generate unique hallways each run! This project helped develop my problem solving mind, as I wrapped my head around difficult math.</p>
+            </div>
+
+            <div class="displayProject">
+                <video class="displayVideo" autoplay muted loop>
+                    <source src="Assets/videos/bounce/bounceVideo.mp4">
+                </video>
+
+                <h2 class="displayTitle">Idle Bouncer</h2>
+                <p class="displayText">A visually simple idle game. Combines complex physics calculations and vectors in order to give each bounce a satisfying and somewhat realistic feel.</p>
+            </div>
+
+            <div class="displayProject">
+                <video class="displayVideo" autoplay muted loop>
+                    <source src="Assets/videos/fingerGun/landingPageVideo.mp4">
+                </video>
+
+                <h2 class="displayTitle">3D FPS Movement</h2>
+                <p class="displayText">A satisfying FPS. Smooth movement and a satisfying explosion when getting a shot just right. These both took many hours and a lot of testing to become satisfying enough for the average user.</p>
+            </div>
+
+            <div class="displayProject">
+                <video class="displayVideo" autoplay muted loop>
+                    <source src="Assets/videos/timeHeist/landingPageHeistVideo.mp4">
+                </video>
+
+                <h2 class="displayTitle">Multiple interactions</h2>
+                <p class="displayText">A potentially confusing premise. Tracking each button the user presses and for how long it is pressed in order to allow the user to solve a variety of puzzles.</p>
+            </div>
+
+            <div class="displayProject">
+                <video class="displayVideo" autoplay muted loop>
+                    <source src="Assets/videos/multiplayer/multiplayerLandingPageVideo.mp4">
+                </video>
+
+                <h2 class="displayTitle">Multiplayer Shooter</h2>
+                <p class="displayText">This is a simple 2D shooter game. This project taught me that you need to sync pretty much everything up, and they all have their own seperate ways of getting synced. The process was probably the longest I've ever been through, but the end result works perfectly.'</p>
+            </div>
+
+            <!--<div class="displayProject">
+                <video class="displayVideo" autoplay muted loop>
+                    <source src="Assets/videos/flashcards/flashcardsLandingPageVideo.mp4">
+                </video>
+
+                <h2 class="displayTitle">Revision Application</h2>
+                <p class="displayText">A useful phone revision app. Using a lot of reflection to be able to load in as many topics as I please and has been made in a way that I am able to easily add new topics and subjects, without the risk of everything breaking.</p>
+            </div>-->
         </div>
 
         <div id="bottomBar">
-
+            <h2 id="bottomText">2025 - Portfolio - Ben Feltham</h2>
         </div>
 
         <script src="work_website_js.js"></script>
+        <script src="rainbow.js"></script>
     </body>
 </html>
