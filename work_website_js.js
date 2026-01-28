@@ -21,17 +21,20 @@ function maxHeight() {
         html.clientHeight, html.scrollHeight, html.offsetHeight);
 }
 
-document.addEventListener('resize', () => {
-    document.body.style.height = (document.documentElement.scrollHeight + 75) + "px";
-    setBordersHeight();
-});
+
+//document.addEventListener('resize', () => {
+//    document.body.style.height = (document.documentElement.scrollHeight + 75) + "px";
+//    setBordersHeight();
+//});
 
 document.addEventListener('DOMContentLoaded', () => {
-    document.body.style.height = (document.documentElement.scrollHeight + 75) + "px";
+    //document.body.style.height = document.documentElement.scrollHeight + "px";
+
+
 
     document.getElementById("bottomText").innerText = (new Date().getFullYear()) + " - Portfolio - Ben Feltham";
 
-    setBordersHeight();
+    //setBordersHeight();
 });
 
 //document.body.style.height = (document.documentElement.scrollHeight + 75) + "px";
