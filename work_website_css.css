@@ -1,10 +1,13 @@
 /* for the aesthetic */
 
 body {
-    background-color:white;
     min-height:100vh;
     display:flex;
     flex-direction:column;
+
+    background: linear-gradient(0deg, hsla(0, 0%, 0%, 1) 0%, hsla(270, 100%, 4%, 1) 25%, hsla(269, 100%, 11%, 1) 50%, hsla(270, 100%, 15%, 1) 75%, hsla(270, 100%, 23%, 1) 100%);
+}
+
 main{
     flex:1;
 }
