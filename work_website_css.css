@@ -72,8 +72,7 @@ footer{
 }
 
 
-#projectsTitle{
-    font-size:1.5vw;
+#projectsTitle {
     margin-top: 75px;
     font-size: clamp(1.5rem, 2.5vw, 3rem);
 }
@@ -95,7 +94,7 @@ footer{
     left:2.5%;
     width:95%;
 
-    font-size:1.2vw;
+    font-size:clamp(1rem, 2vw, 2rem);
 
     text-align:center;
 /*    background-color:gainsboro;*/
