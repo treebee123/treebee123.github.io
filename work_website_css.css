@@ -78,15 +78,6 @@ footer{
 
 
 /* classes */
-.border {
-/*    background-color: #4d4d4d;*/
-    background: linear-gradient(180deg, rgba(77, 77, 77, 1) 6%, rgba(227, 227, 227, 1) 100%);
-
-    width: 10%;
-    top: 0;
-}
-
-
 .absolute {
     position:absolute;
 }
