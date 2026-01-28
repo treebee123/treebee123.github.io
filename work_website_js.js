@@ -42,6 +42,9 @@ document.addEventListener('resize', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     document.body.style.height = (document.documentElement.scrollHeight + 75) + "px";
+
+    document.getElementById("bottomText").innerText = (new Date().getFullYear()) + " - Portfolio - Ben Feltham";
+
     setBordersHeight();
 });
 
