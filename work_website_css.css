@@ -45,7 +45,7 @@ footer{
     left: 17.5%;
     width: 65%;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fill, 32%);
     gap: 1vw;
     margin-bottom: 10vh;
 }
@@ -129,28 +129,28 @@ footer{
 }
 
 .displayTitle {
-    position:relative;
-/*    font-size:2vw;*/
-    text-size-adjust:auto;
-    
-    text-align:center;
-    font-weight:bolder;
+    position: relative;
+    /*    font-size:2vw;*/
+    /*    text-size-adjust:auto;*/
 
+    font-size: clamp(.5rem, 2.25vw, 1.5rem);
 
-    color:white;
+    text-align: center;
+    font-weight: bolder;
+    color: white;
 }
 
 .displayText {
-    position:relative;
-/*    font-size:1vw;*/
-    text-size-adjust:auto;
-    
-    padding-left:10px;
-    padding-right:10px;
+    position: relative;
+    /*    font-size:1vw;*/
+    /*    text-size-adjust:auto;*/
 
-    text-align:center;
+    font-size: clamp(0rem, 1.75vw, 1.25rem);
 
-    color:white;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    color: white;
 }
 
 .splitter {
