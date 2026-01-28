@@ -21,20 +21,6 @@ function maxHeight() {
         html.clientHeight, html.scrollHeight, html.offsetHeight);
 }
 
-//function rgbToHex(r, g, b) {
-//    return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
-//}
-
-//function changeBottomColour() {
-//    var gradient = new Rainbow();
-//    gradient.setNumberRange(0, document.documentElement.scrollHeight - window.innerHeight);
-//    gradient.setSpectrum(rgbToHex(77, 77, 77), rgbToHex(227, 227, 227));
-
-//    document.getElementById("bottomBar").style.backgroundColor = '#' + gradient.colorAt(window.scrollY / 5);
-//}
-
-//document.addEventListener("scroll", changeBottomColour);
-
 document.addEventListener('resize', () => {
     document.body.style.height = (document.documentElement.scrollHeight + 75) + "px";
     setBordersHeight();
