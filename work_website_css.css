@@ -17,6 +17,7 @@ footer{
 }
 
 *{
+    color:white;
     font-family:monospace;
     transition-duration:.25s;
 
@@ -151,4 +152,14 @@ footer{
     text-align:center;
 
     color:white;
+}
+
+.splitter {
+    position: relative;
+    width: 50%;
+    aspect-ratio: 300 / 1;
+    border-radius: 10px;
+    background-color: white;
+    align-self: center;
+    margin: 3vh 1vh 5vh 1vh;
 }
