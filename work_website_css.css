@@ -22,40 +22,10 @@ footer{
 
 /* ids */
 #mainTitle {
-    font-weight:bold;
-}
-
-
-#topBar{
-    position:fixed;
-    
-    left:10%;
-    top:0;
-
-    width:80%;
-    aspect-ratio:15/1;
-    
-    z-index:100;
-
-    display:flex;
-    justify-content:space-evenly;
-    align-items:center;
-
-    background-color:white;
-}
-
-#topBar * {
-    font-size:inherit;
-    white-space:nowrap;
-}
-
-#topBar > h2:hover {
-    color: deepskyblue;
-
-    cursor:pointer;
-}
-
-
+    font-weight: bold;
+    top: 3vh;
+    left: 50%;
+    font-size: clamp(2rem, 5vw, 4rem);
 }
 
 #bottomText{
