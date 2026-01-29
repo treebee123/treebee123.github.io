@@ -173,4 +173,11 @@ footer{
     gap:1vw;
     margin-bottom:10vh;
 }
+
+.horizontalDisplay {
+    position: relative;
+    align-self: center;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #262626;
 }
