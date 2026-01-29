@@ -162,3 +162,15 @@ footer{
     align-self: center;
     margin: 3vh 1vh 5vh 1vh;
 }
+
+.newDisplayContainer{
+    position:relative;
+    align-self:center;
+    width:75%;
+    height:fit-content;
+    display:grid;
+    grid-template-columns:repeat(1, 100%);
+    gap:1vw;
+    margin-bottom:10vh;
+}
+}
