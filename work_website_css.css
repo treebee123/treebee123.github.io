@@ -26,9 +26,8 @@ footer{
 /* ids */
 #mainTitle {
     font-weight: bold;
-    top: 3vh;
-    left: 50%;
-    font-size: clamp(2rem, 5vw, 4rem);
+    align-self:center;
+    font-size: clamp(1.5rem, 8vw, 4rem);
 }
 
 #bottomText {
@@ -52,6 +51,7 @@ footer{
 
 
 
+
 #leftBorder {
     left:0px;
 }
@@ -66,7 +66,7 @@ footer{
 
     width:80%;
 
-    margin: calc(80vw / 10 + 10vw) auto 0; /* topBar height + spacing */
+    margin: calc(80vw / 10 + 1vw) auto 0; /* topBar height + spacing */
 
 /*    background-color:black;*/
 }
@@ -74,7 +74,7 @@ footer{
 
 #projectsTitle {
     margin-top: 75px;
-    font-size: clamp(1.5rem, 2.5vw, 3rem);
+    font-size: clamp(2.25rem, 2.5vw, 3rem);
 }
 
 
@@ -155,12 +155,12 @@ footer{
 
 .splitter {
     position: relative;
-    width: 50%;
-    aspect-ratio: 300 / 1;
+    width: 60vw;
+    aspect-ratio: 200 / 1;
     border-radius: 10px;
     background-color: white;
     align-self: center;
-    margin: 3vh 1vh 5vh 1vh;
+    margin: 5vh auto 5vh auto;
 }
 
 .newDisplayContainer{
