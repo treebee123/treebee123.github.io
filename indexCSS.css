@@ -2,14 +2,11 @@ body{
   background-color:gray;
 }
 
-*{
-  font-family:monospace;
-}
-
 p{
   left:50%;
   top:50%;
-  font-size:50em;
+  font-size:5em;
+  font-family:monospace;
 }
 
 #loadPortfolio{
