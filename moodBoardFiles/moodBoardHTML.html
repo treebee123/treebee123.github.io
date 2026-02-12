@@ -9,16 +9,16 @@
     </head>
     <body>
         <input id="file" class="relative centered fitContent" type="file" multiple accept="image/jpeg, image/png" />
+        <label for="amountInColSlider" id="amountInColLabel" class="relative centeredX fitContent">Pictures in column: 5</label>
+        <input type="range" id="amountInColSlider" class="relative centeredX fitContent" name="amountInColumn" min="1" max="20" value="5" />
+        <button id="downloadButton" onclick="downloadGrid()">Download</button>
 
         <div id="imageContainer" class="relative">
 
         </div>
 
-        <label for="amountInColSlider" id="amountInColLabel" class="relative centeredX fitContent">Pictures in column: 5</label>
-        <input type="range" id="amountInColSlider" class="relative centeredX fitContent" name="amountInColumn" min="1" max="10" />
-
-        <footer id="bottomText" class="absolute centered">2025 - Mood Board - Ben Feltham</footer>
 
         <script src="moodBoardJS.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     </body>
 </html>
