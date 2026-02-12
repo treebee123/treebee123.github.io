@@ -3,9 +3,7 @@ body{
 }
 
 p{
-  left:50%;
-  top:50%;
-  font-size:5em;
+  font-size:4em;
   font-family:monospace;
 }
 
@@ -30,4 +28,7 @@ p{
   width:20vw;
   aspect-ratio:1;
   background-color:white;
+  display:flex;
+  text-align:center;
+  align-items:center;
 }
