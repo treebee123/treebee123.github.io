@@ -1,0 +1,18 @@
+body{
+  background-color:gray;
+}
+
+.absolute{
+  position:absolute;
+}
+
+.centered{
+  Transform:Translate(-50%, -50%);
+}
+
+.button{
+  left:50%;
+  width:20vw;
+  aspect-ratio:1;
+  background-color:white;
+}
