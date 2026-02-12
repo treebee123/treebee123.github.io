@@ -5,6 +5,7 @@ body{
 p{
   font-size:4em;
   font-family:monospace;
+  width:100%;
 }
 
 #loadPortfolio{
