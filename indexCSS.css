@@ -2,6 +2,14 @@ body{
   background-color:gray;
 }
 
+#loadPortfolio{
+  top:25vh;
+}
+
+#loadMoodBoard{
+  top:75vh;
+}
+
 .absolute{
   position:absolute;
 }
