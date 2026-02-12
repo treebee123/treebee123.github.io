@@ -1,7 +1,7 @@
 function clickPortfolio(){
-  window.alert("clicked portfolio");
+  window.location.href = "portfolioFiles/portfolioHTML.html";
 }
 
 function clickMoodBoard(){
-  window.alert("clicked mood board");
+  window.location.href = "moodBoardFiles/moodBoardHTML.html";
 }
