@@ -7,17 +7,20 @@ function createFragment(itemHTML) {
 
 window.onload = function() {
     document.getElementById('file').addEventListener('change', loadFiles);
+
+    document.getElementById("amountInColSlider").addEventListener('change', changeColSlider);
 }
+
+const changeColSlider = (event) => {
+    console.log("pictures in column: ", event.target.value);
+    document.getElementById("amountInColLabel").innerText = "Pictures in column: " + event.target.value;
+    document.getElementById("imageContainer").style.gridTemplateColumns = `repeat(${event.target.value}, minmax(0, 1fr))`;
+}
+
 const loadFiles = (event) => {
     const files = event.target.files;
     for(let file of files){
-        var fr = new FileReader();
-        fr.onload = function () {
-            const newImage = createFragment('<image src="${fr.result}"></image>');
-            document.getElementById("imageContainer").appendChild(newImage);
-        }
-        
-        fr.readAsDataURL(file);
-        FileReader.Close();
+        const newImage = createFragment(`<image src="${URL.createObjectURL(file)}">`);
+        document.getElementById("imageContainer").appendChild(newImage);
     }
 }
