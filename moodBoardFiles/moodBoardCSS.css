@@ -42,6 +42,7 @@ img{
     background-color: white;
     width: 29.7cm;
     height: 21cm;
+    overflow-y:scroll;
 }
 
 .centered{
