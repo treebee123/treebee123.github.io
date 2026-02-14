@@ -41,6 +41,10 @@ for (let projectIndex = 0; projectIndex < projectsToLoad.length; projectIndex++)
     document.getElementById("newDisplayContainer").appendChild(splitter);
 }
 
+setTimeout(() => {
+    setDarkenSize();
+}, 100)
+
 //end creation
 
 
@@ -74,12 +78,15 @@ function maxHeight() {
 document.addEventListener('DOMContentLoaded', () => {
     //document.body.style.height = document.documentElement.scrollHeight + "px";
 
-
-
     document.getElementById("bottomText").innerText = (new Date().getFullYear()) + " - Portfolio - Ben Feltham";
 
     //setBordersHeight();
 });
+
+function setDarkenSize() {
+    const darkenBackground = document.getElementById("darkenBackground");
+    darkenBackground.style.height = document.body.clientHeight + "px";
+}
 
 //document.body.style.height = (document.documentElement.scrollHeight + 75) + "px";
 //setBordersHeight();
