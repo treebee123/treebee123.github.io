@@ -9,8 +9,11 @@
     </head>
     <body>
         <input id="file" class="relative centered fitContent" type="file" multiple accept="image/jpeg, image/png" />
+
         <label for="amountInColSlider" id="amountInColLabel" class="relative centeredX fitContent">Pictures in column: 5</label>
         <input type="range" id="amountInColSlider" class="relative centeredX fitContent" name="amountInColumn" min="1" max="20" value="5" />
+        
+        
         <button id="downloadButton" onclick="downloadGrid()">Download</button>
 
         <div id="imageContainer" class="relative">

@@ -1,0 +1,58 @@
+body {
+    background-color: rgb(56, 56, 56);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    
+}
+
+* {
+    font-family:monospace;
+}
+
+
+#invoiceTitle {
+    left:50%;
+}
+
+#invoiceContainer {
+    background-color:white;
+
+    height:29.7cm;
+    width:21cm;
+
+    transform-origin:top;
+}
+
+#identifiers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 30%;
+    width:100%;
+}
+
+
+.relative {
+    position:relative;
+}
+
+.centered {
+    transform:translate(-50%, -50%);
+}
+
+.darkerBackground {
+    background-color:rgb(56, 56, 56, 0.3)
+}
+
+.infoItem {
+    height:100%;
+    width:100%;
+    margin: 5% 5% 0 5%;
+}
+
+.outsideText {
+    color:white;
+}
