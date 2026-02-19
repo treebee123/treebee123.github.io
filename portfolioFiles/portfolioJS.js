@@ -27,7 +27,7 @@ var projectsToLoad = [
     new Item("horizontalDisplay", "../Assets/videos/timeHeist/landingPageHeistVideo.mp4", "Multiple interactions", "A potentially confusing premise. Tracking each button the user presses and for how long it is pressed in order to allow the user to solve a variety of puzzles."),
     new Item("horizontalDisplay", "../Assets/videos/multiplayer/multiplayerLandingPageVideo.mp4", "Multiplayer Shooter", "This is a simple 2D shooter game. This project taught me that you need to sync pretty much everything up, and they all have their own seperate ways of getting synced. The process was probably the longest I've ever been through, but the end result works perfectly."),
     new Item("verticalDisplay", "../Assets/videos/flashcards/flashcardsLandingPageVideo.mp4", "Revision Application", "A useful phone revision app. Using a lot of reflection to be able to load in as many topics as I please and has been made in a way that I am able to easily add new topics and subjects, without the risk of everything breaking."),
-
+    new Item("horizontalDisplay", "../Assets/videos/textVisuals/textVisualsLandingPageVideo.mp4", "Image From Text", "Load custom images and convert them into an image made up of a specific text, binary numbers, or random alphanumeric characters. This program allows for the user to rearrange the images around and order them however the user pleases, using original or chosen colours.")
 ]
 
 for (let projectIndex = 0; projectIndex < projectsToLoad.length; projectIndex++) {
