@@ -17,7 +17,7 @@ function makeStruct(variables) {
 var Item = makeStruct("videoPath htmlPath title description");
 var projectsToLoad = [
     new Item("Assets/videos/moodboard/moodboardVideo.mp4", "moodBoardFiles/moodBoardHTML.html", "Mood Board Creator", "A quick and easy way to create and print a mood board. Mood board may clip images if outside of area."),
-    new Item("", "invoiceCreator/invoiceCreatorHTML.html", "Invoice Creator", "Use a given template to create a multitude of invoices."),
+    //new Item("", "invoiceCreator/invoiceCreatorHTML.html", "Invoice Creator", "Use a given template to create a multitude of invoices."),
 ]
 
 for (let projectIndex = 0; projectIndex < projectsToLoad.length; projectIndex++) {
