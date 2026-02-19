@@ -11,18 +11,29 @@ body {
     font-family:monospace;
 }
 
-
-#invoiceTitle {
-    left:50%;
+input::placeholder {
+    width:100%;
+    font-size:100%;
 }
 
-#invoiceContainer {
-    background-color:white;
 
-    height:29.7cm;
-    width:21cm;
+#invoiceTitle {
+    font-size: 4vw;
+    margin: 1vh;
+}
 
-    transform-origin:top;
+#selectContainer {
+    margin:1vh;
+}
+
+#invoiceContainers {
+    background-color: rgb(255, 255, 255, 0.35);
+    height: 75%;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 10px;
 }
 
 #identifiers {
@@ -43,16 +54,49 @@ body {
     transform:translate(-50%, -50%);
 }
 
+.itemContainer {
+    background-color: white;
+    transform-origin: top;
+}
+
+.infoChild {
+    width:fit-content;
+    height:fit-content;
+}
+
 .darkerBackground {
-    background-color:rgb(56, 56, 56, 0.3)
+    background-color: rgba(57, 57, 57, 0.45);
 }
 
 .infoItem {
     height:100%;
     width:100%;
     margin: 5% 5% 0 5%;
+
+    display:flex;
+    flex-direction:column;
+    gap:3%;
+    align-items:flex-start;
+}
+
+.infoItem > * {
+    margin:2%;
 }
 
 .outsideText {
     color:white;
+}
+
+.boldText {
+    font-size: 2.5vw;
+    font-weight:bold;
+    width: fit-content;
+    height: fit-content;
+}
+
+.normalText {
+    font-size: 2vw;
+    font-weight: lighter;
+    width: fit-content;
+    height: fit-content;
 }

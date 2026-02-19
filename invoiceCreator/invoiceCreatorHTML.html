@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    
+    <!--<h1 class="outsideText">we're going to make it so there are 2 invoice containers, the left is for editing and the right is the viewer. then we print/convert the right to pdf</h1>-->
 
     <h1 id="invoiceTitle" class="outsideText">Invoice Creator</h1>
 
@@ -18,7 +18,63 @@
         </select>
     </div>
 
-    <div id="invoiceContainer" class="relative">
+    <div id="invoiceContainers" class="relative">
+
+        <div id="invoiceEditContainer" class="relative itemContainer">
+            
+            <div id="identifiers" class="relative">
+            
+                <div class="relative darkerBackground infoItem">
+
+                    <input id="editClientOrganisation" class="infoChild" type="text" placeholder="Input Company Name..." />
+
+                    <input id="editFAO" class="infoChild" type="text" placeholder="Input F.A.O..." />
+
+                    <input id="editAddress" class="infoChild" type="text" placeholder="Input Address..." />
+
+                    <input id="editTown" class="infoChild" type="text" placeholder="Input Town..." />
+
+                    <input id="editPostCode" class="infoChild" type="text" placeholder="Input Post Code..." />
+
+                </div>
+
+                <div class="relative darkerBackground infoItem">
+                    
+                    <input id="editClientOrganisation" class="infoChild" type="text" placeholder="Input Company Name..." />
+                    
+                </div>
+        
+            </div>
+        
+        </div>
+
+        <div id="invoicePreviewContainer" class="relative itemContainer">
+
+            <div id="identifiers" class="relative">
+            
+                <div class="relative darkerBackground infoItem">
+
+                    <h1 id="previewClientOrganisation" class="boldText" />
+
+                    <h1 id="previewFAO" class="normalText" />
+
+                    <h1 id="previewAddress" class="normalText"></h1>
+
+                    <h1 id="previewTown" class="normalText"></h1>
+
+                    <h1 id="previewPostCode" class="normalText"></h1>
+                </div>
+
+                <div class="relative darkerBackground infoItem">
+
+                    <h1 id="previewClientOrganisation" class="boldText" />
+
+                </div>
+            
+            </div>
+        
+        </div>
+
     </div>
 
     <script src="invoiceCreatorJS.js"></script>
