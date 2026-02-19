@@ -8,7 +8,28 @@
 </head>
 
 <body>
-    
+
+    <h1 id="notepadTitle" class="outsideText">Notepad</h1>
+
+    <div id="selectContainer">
+        <label for="noteChooser" class="outsideText normalText">Choose Notes:</label>
+        <select id="noteChooser" class="normalText" onchange="selectedNote()">
+        </select>
+
+        <!--<button onclick="loadOptions()">Load Options</button>-->
+        <button onclick="saveNote()" class="normalText">Save Note</button>
+        <button onclick="deleteNote()" class="normalText">Delete Note</button>
+    </div>
+
+    <input id="noteName" type="text" class="relative normalText" placeholder="Input note name..." oninput="changeNoteName()">
+
+    <div id="notepadDisplay" class="relative">
+        <div id="notepad" class="relative">
+            <textarea id="notepadInput" class="relative" placeholder="Enter notes..."></textarea>
+            <!--<input id="notepadInput" class="relative" placeholder="Enter notes...">-->
+        </div>
+    </div>
+
     <script src="notepadJS.js"></script>
 </body>
 </html>

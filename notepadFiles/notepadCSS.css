@@ -1,0 +1,79 @@
+body {
+    background-color: rgb(56, 56, 56);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+*{
+    font-family:monospace;
+}
+
+#notepadTitle {
+    font-size: 4vw;
+    margin: 1vh;
+}
+
+input::placeholder {
+    width: 100%;
+    font-size: 100%;
+}
+
+#selectContainer {
+    margin: 1vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: .5vw;
+}
+
+#notepadDisplay {
+/*    background-color: rgb(255, 255, 255, 0.35);*/
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 10px;
+}
+
+#notepad {
+    background-color: white;
+    border-radius: .5vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#notepadInput {
+    width:95%;
+    height:100%;
+    font-size:1.5vw;
+    margin:1vw;
+    resize:none;
+    border:none;
+}
+
+.outsideText {
+    color: white;
+}
+
+.fitContent{
+    width:fit-content;
+    height:fit-content;
+}
+
+.boldText {
+    font-size: 2.5vw;
+    font-weight: bold;
+    width: fit-content;
+    height: fit-content;
+}
+
+.normalText {
+    font-size: 2vw;
+    font-weight: lighter;
+    width: fit-content;
+    height: fit-content;
+}
