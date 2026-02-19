@@ -33,7 +33,3 @@ for (let projectIndex = 0; projectIndex < projectsToLoad.length; projectIndex++)
 function clickPortfolio() {
   window.location.href = "portfolioFiles/portfolioHTML.html";
 }
-
-function clickMoodBoard(){
-  window.location.href = "moodBoardFiles/moodBoardHTML.html";
-}
