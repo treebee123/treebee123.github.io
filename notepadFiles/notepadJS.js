@@ -44,9 +44,12 @@ function saveAutoSavePreset() {
 }
 
 function deleteNote() {
-    if (noteSelect.value == "selectOption" || noteSelect.value == "newOption") return;
+    if ((noteSelect.value == "selectOption" || noteSelect.value == "newOption") == false) {
+        localStorage.removeItem(noteSelect.value);
+    }
 
-    localStorage.removeItem(noteSelect.value);
+    noteNameInput.value = "";
+    noteValueInput.value = "";
 
     loadOptions();
 }
