@@ -6,6 +6,8 @@ const noteValueInput = document.getElementById("notepadInput");
 
 const noteSelect = document.getElementById("noteChooser");
 
+const autoSaveToggle = document.getElementById("autosaveCheckbox");
+
 function createFragment(itemHTML) {
     const parser = new DOMParser();
     return parser.parseFromString(itemHTML, 'text/html').body.firstElementChild;
@@ -36,6 +38,11 @@ function changeNoteName() {
     noteSelect.value = "selectOption";
 }
 
+function saveAutoSavePreset() {
+    console.log(`autosave: ${autoSaveToggle.checked}`);
+    localStorage.setItem("autosaveState", autoSaveToggle.checked);
+}
+
 function deleteNote() {
     if (noteSelect.value == "selectOption" || noteSelect.value == "newOption") return;
 
@@ -62,6 +69,38 @@ function saveNote() {
     loadOptions();
 }
 
+function isNotepadNameEmpty() {
+    return noteNameInput.value.length === 0;
+}
+
+function isNotepadEmpty() {
+    console.log(`noteKey length: ${noteNameInput.value.length}\nnoteValue length: ${noteValueInput.value.length}`);
+
+    return (noteNameInput.value.length === 0 || noteValueInput.value.length === 0);
+}
+
+function notepadTextChange(keyPressed) {
+    console.log("autosaving...");
+    autosave();
+}
+
+function autosave() {
+    if (!autoSaveToggle.checked) return;
+
+    console.log("autosave on");
+
+    if (isNotepadNameEmpty() === true) return;
+
+    console.log("autosaved");
+
+    const noteKey = noteNameInput.value;
+    const noteValue = noteValueInput.value;
+
+    localStorage.setItem(noteKey, noteValue);
+
+    loadOptions();
+}
+
 function loadOptions() {
     for (let optionIndex = noteSelect.childElementCount - 1; optionIndex >= 0; optionIndex--) {
         const child = noteSelect.children[optionIndex];
@@ -81,6 +120,9 @@ function loadOptions() {
 
 
     for (let optionIndex = 0; optionIndex < localStorage.length; optionIndex++) {
+
+        if (localStorage.key(optionIndex) == "autosaveState") continue;
+
         const optionItem = localStorage.getItem(localStorage.key(optionIndex));
 
         const optionKey = localStorage.key(optionIndex);
@@ -129,4 +171,15 @@ window.addEventListener('resize', () => {
 window.addEventListener('DOMContentLoaded', () => {
     updateInvoiceContainerSize();
     updateInvoicesSize();
+
+    if (localStorage.getItem("autosaveState") === null) {
+        console.log("autosave is null");
+        localStorage.setItem("autosaveState", true);
+    }
+
+    autoSaveToggle.checked = JSON.parse(localStorage.getItem("autosaveState"));
+
+    noteValueInput.addEventListener('keydown', (event) => {
+        notepadTextChange(event.key);
+    });
 });
