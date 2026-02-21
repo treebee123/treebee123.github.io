@@ -19,6 +19,9 @@
         <!--<button onclick="loadOptions()">Load Options</button>-->
         <button onclick="saveNote()" class="normalText">Save Note</button>
         <button onclick="deleteNote()" class="normalText">Delete Note</button>
+
+        <label for="autosaveCheckbox" class="outsideText normalText">Auto Save: </label>
+        <input id="autosaveCheckbox" type="checkbox" checked="checked" onchange="saveAutoSavePreset()">
     </div>
 
     <input id="noteName" type="text" class="relative normalText" placeholder="Input note name..." oninput="changeNoteName()">

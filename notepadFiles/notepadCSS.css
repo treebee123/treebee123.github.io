@@ -55,6 +55,12 @@ input::placeholder {
     border:none;
 }
 
+#autosaveCheckbox{
+    width:1.5vw;
+    aspect-ratio:1;
+    border-radius:0.5vw;
+}
+
 .outsideText {
     color: white;
 }
