@@ -59,8 +59,8 @@ function saveNote() {
     const noteKey = noteNameInput.value;
     const noteValue = noteValueInput.value;
 
-    if (noteKey.length == 0 || noteValue.length == 0) {
-        window.alert(`note key contains nothing ${noteKey.length == 0}.\nnote value contains nothing ${noteValue.length == 0}`);
+    if (isNotepadNameEmpty() === true) {
+        window.alert(`note key contains nothing ${noteKey.length === 0}.\nnote value contains nothing ${noteValue.length === 0}`);
         return;
     }
 
