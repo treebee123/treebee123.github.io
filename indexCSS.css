@@ -29,20 +29,21 @@ h2, p, h1{
 }
 
 #loadPortfolio {
-    top: 25vh;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    background-color: transparent;
+    color: white;
+    transition-property:color;
+    transition-duration:0.5s;
 }
 
-#HTMLButtonHolder {
+    #loadPortfolio:hover {
+        color: #d4d4d4;
+        transition-property: color;
+        transition-duration: 0.5s;
+    }
 
-    display:flex;
-    flex-direction:row;
-    justify-content:space-around;
-    overflow-x:scroll;
-
-    background-color:rgb(171, 171, 171, 0.44);
-
-    width:80%;
-    height:fit-content;
 }
 
 .absolute {
