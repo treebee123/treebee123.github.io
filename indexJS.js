@@ -33,3 +33,19 @@ for (let projectIndex = 0; projectIndex < projectsToLoad.length; projectIndex++)
 function clickPortfolio() {
   window.location.href = "portfolioFiles/portfolioHTML.html";
 }
+
+function changePortfolioButtonSize(){
+    let portfolioButton = document.getElementById("loadPortfolio");
+    let otherScroll = document.getElementById("HTMLButtonHolder");
+
+    const portfolioRect = portfolioButton.getBoundingClientRect();
+
+    const otherScrollRect = otherScroll.getBoundingClientRect();
+
+    const distanceOfYs = otherScrollRect.top - portfolioRect.top;
+
+    portfolioButton.style.height = distanceOfYs + "px";
+}
+
+window.addEventListener('resize', changePortfolioButtonSize);
+window.addEventListener('DOMContentLoaded', changePortfolioButtonSize);
