@@ -44,6 +44,18 @@ h2, p, h1{
         transition-duration: 0.5s;
     }
 
+#HTMLButtonHolder {
+    display: grid;
+    overflow-x: scroll;
+    padding: 1vw;
+    background-color: rgb(171, 171, 171, 0.44);
+    width: 98vw;
+    column-gap: 1vw;
+    height: fit-content;
+    position: fixed;
+    bottom: 0;
+    justify-content: start;
+    grid-auto-flow: column;
 }
 
 .absolute {
