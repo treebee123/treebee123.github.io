@@ -18,7 +18,8 @@ var Item = makeStruct("videoPath posterPath htmlPath title description");
 var projectsToLoad = [
     new Item("Assets/mainMenuAssets/moodboard/moodboardVideo.mp4", "Assets/mainMenuAssets/moodboard/moodboardPoster.png", "moodBoardFiles/moodBoardHTML.html", "Mood Board Creator", "A quick and easy way to create and print a mood board. Mood board may clip images if outside of area."),
     //new Item("", "invoiceCreator/invoiceCreatorHTML.html", "Invoice Creator", "Use a given template to create a multitude of invoices."),
-    new Item("", "Assets/mainMenuAssets/notepad/notepadPoster.png", "notepadFiles/notepadHTML.html", "Notepad", "To store any notes that may arise")
+    new Item("", "Assets/mainMenuAssets/notepad/notepadPoster.png", "notepadFiles/notepadHTML.html", "Notepad", "To store any notes that may arise"),
+    new Item("", "", "chess/chessHTML.html", "Chess", "Online or local chess game with modifiers")
 ]
 
 for (let projectIndex = 0; projectIndex < projectsToLoad.length; projectIndex++) {
