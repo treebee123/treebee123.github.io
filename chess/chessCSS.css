@@ -1,0 +1,32 @@
+body {
+    background-color: #525252;
+}
+
+* {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.board {
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    position:absolute;
+    display:grid;
+    width:80vmin;
+    height:80vmin;
+/*    aspect-ratio:1;*/
+}
+
+.boardSquare {
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boardPiece{
+    aspect-ratio: 1;
+}
