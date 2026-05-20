@@ -4,23 +4,27 @@ function createFragment(itemHTML) {
 }
 
 function makeStruct(variables) {
-    var splitVariables = variables.split(' ');
-    var count = splitVariables.length;
+    //var splitVariables = variables.split(' ');
+    //var count = splitVariables.length;
+
+    var count = variables.length;
+
     function constructor() {
         for (var i = 0; i < count; i++) {
-            this[splitVariables[i]] = arguments[i];
+            //this[splitVariables[i]] = arguments[i];
+            this[variables[i]] = arguments[i];
         }
     }
     return constructor;
 }
 
-var pieceItem = makeStruct("pieceName pieceImageURL");
+var pieceItem = makeStruct(["pieceName", "pieceImageURL", "getValidMoveIndexes"]);
 
 const piecePath = "../Assets/mainMenuAssets/chess/piecesImages";
 
 let pieceDictionary = new Map([
-    ["p", new pieceItem("white-pawn", `${piecePath}/white-pawn.png`)],
-    ["P", new pieceItem("black-pawn", `${piecePath}/black-pawn.png`)],
+    ["p", new pieceItem("white-pawn", `${piecePath}/white-pawn.png`, getPawnMoveIndexes)],
+    ["P", new pieceItem("black-pawn", `${piecePath}/black-pawn.png`, getPawnMoveIndexes)],
 
     ["b", new pieceItem("white-bishop", `${piecePath}/white-bishop.png`)],
     ["B", new pieceItem("black-bishop", `${piecePath}/black-bishop.png`)],
@@ -37,6 +41,31 @@ let pieceDictionary = new Map([
     ["k", new pieceItem("white-king", `${piecePath}/white-king.png`)],
     ["K", new pieceItem("black-king", `${piecePath}/black-king.png`)],
 ]);
+
+function isIndexOnBoard(index) {
+    return (index > -1) && (index < boardSize);
+}
+
+function getPawnMoveIndexes(fenNotation, currentIndex) {
+    const current2D = get2D(currentIndex);
+    let new2D = current2D;
+
+    const isWhite = fenNotation === fenNotation.toLowerCase();
+
+    if (isWhite) {
+        new2D[1] -= 1;
+    } else {
+        new2D[1] += 1;
+    }
+
+
+    const newIndex = getIndex(new2D[0], new2D[1]);
+    if (isIndexOnBoard(newIndex)) {
+        return [newIndex];
+    }
+
+    return [-1];
+}
 
 
 const boardSquaresElement = document.getElementById("boardSquares");
@@ -63,7 +92,7 @@ function changeTileColours() {
             chosenColour = (boardPieceIndex % 2 == 0) ? secondTileColourPicker.value : firstTileColourPicker.value;
         }
 
-        const currentTile = document.getElementById(`square${boardPieceIndex}`);
+        const currentTile = document.getElementById(`square_${boardPieceIndex}`);
         currentTile.style.backgroundColor = chosenColour;
     }
 }
@@ -114,7 +143,7 @@ function createBoardSquares() {
             chosenColour = (boardPieceIndex % 2 == 0) ? secondTileColourPicker.value : firstTileColourPicker.value;
         }
 
-        const newTile = createFragment(`<div id="square${boardPieceIndex}" class="boardSquare" style="background-color:${chosenColour};"> </div>`);
+        const newTile = createFragment(`<div id="square_${boardPieceIndex}" class="boardSquare" style="background-color:${chosenColour};"> </div>`);
 
         boardSquaresElement.appendChild(newTile);
     }
@@ -145,7 +174,7 @@ function createBoardPieces(inputFen) {
             const pieceDictionaryValue = pieceDictionary.get(currentLetter);
 
 
-            const squareElement = document.getElementById(`square${boardIndex}`);
+            const squareElement = document.getElementById(`square_${boardIndex}`);
 
             //console.log(squareElement.childNodes.length > 1)
 
@@ -159,6 +188,7 @@ function createBoardPieces(inputFen) {
                     isMouseDown = true;
                     selectedIndex = currentBoardIndex;
                     selectedElement = newPiece;
+                    selectedFen = currentLetter;
                 });
 
                 squareElement.appendChild(newPiece);
@@ -168,19 +198,6 @@ function createBoardPieces(inputFen) {
         }
 
     }
-
-
-    //for (let boardPieceIndex = 0; boardPieceIndex < 64; boardPieceIndex++) {
-    //    const squareElement = document.getElementById(`square${boardPieceIndex}`);
-
-    //    const newPiece = createFragment(`<img src="${pieceDictionary.p.pieceImageURL}" class="boardPiece" style="width:80%;"> </img>`);
-    //    newPiece.addEventListener("mousedown", () => {
-    //        isMouseDown = true;
-    //        selectedIndex = boardPieceIndex;
-    //    });
-
-    //    squareElement.appendChild(newPiece);
-    //}
 }
 
 createBoardSquares();
@@ -191,6 +208,8 @@ createBoardPieces(startBoardFen);
 let isMouseDown = false;
 let selectedIndex = -1;
 let selectedElement = null;
+let selectedFen = "";
+
 document.onmousemove = (e) => {
     const mouseX = e.pageX, mouseY = e.pageY;
 
@@ -205,10 +224,30 @@ document.onmousemove = (e) => {
             selectedElement.style.transform = "Translate(-50%, -50%)";
         }
 
+        const new2Ds = pieceDictionary.get(selectedFen).getValidMoveIndexes(selectedFen, selectedIndex);
+        highlightSquares(new2Ds);
+
         selectedElement.style.left = mouseX + "px";
         selectedElement.style.top = mouseY + "px";
         //console.log(`selected piece of index ${selectedIndex}`);
     }
+}
+
+function highlightSquares(validTileIndexes) {
+    for (const index of validTileIndexes) {
+        const squareElement = document.getElementById(`square_${index}`);
+        squareElement.style.backgroundColor = "#ff0000";
+    }
+}
+
+function isMoveValid(newParentID, validTileIndexes) {
+    for (const index of validTileIndexes) {
+        if (index === newParentID) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 document.onmouseup = (e) => {
@@ -217,24 +256,51 @@ document.onmouseup = (e) => {
     if (selectedElement != null) {
         if (selectedElement.parentElement == document.body) {
             const elementsAtMouse = document.elementsFromPoint(e.clientX, e.clientY);
-            const newElement = elementsAtMouse.find(el => el.classList.contains('boardSquare')) ?? document.getElementById(`square${selectedIndex}`);
+            let newParent = elementsAtMouse.find(el => el.classList.contains('boardSquare')) ?? document.getElementById(`square_${selectedIndex}`);
 
-            if (newElement.childNodes.length > 1) {
-                console.log(`${newElement.id} has ${newElement.childNodes.length} children`);
+            let newParentID = parseInt(newParent.id.split("_")[1]);
+            const validTileIndexes = pieceDictionary.get(selectedFen).getValidMoveIndexes(selectedFen, selectedIndex);
 
-                newElement.removeChild(newElement.childNodes[1]);
+            if (!isMoveValid(newParentID, validTileIndexes)) {
+                newParent = document.getElementById(`square_${selectedIndex}`);
+                newParentID = parseInt(newParent.id.split("_")[1]);
             }
 
-            newElement.appendChild(selectedElement);
+            if (newParent.childNodes.length > 1) {
+                console.log(`${newParent.id} has ${newParent.childNodes.length} children`);
+
+                newParent.removeChild(newParent.childNodes[1]);
+            }
+
+
+            newParent.appendChild(selectedElement);
             selectedElement.style.position = "";
             selectedElement.style.width = "80%";
             selectedElement.style.transform = "";
             selectedElement.style.top = "";
             selectedElement.style.left = "";
+
+
+            const newPieceElement = selectedElement.cloneNode(true);
+
+            newParent.replaceChild(newPieceElement, selectedElement);
+            selectedElement = newPieceElement;
+
+            const pieceFen = selectedFen;
+
+            selectedElement.addEventListener("mousedown", () => {
+                isMouseDown = true;
+                selectedIndex = newParentID;
+                selectedElement = newPieceElement;
+                selectedFen = pieceFen;
+            });
         }
     }
+
+    changeTileColours();
 
     isMouseDown = false;
     selectedIndex = -1;
     selectedElement = null;
+    selectedFen = "";
 }
