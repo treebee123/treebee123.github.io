@@ -29,11 +29,11 @@ let pieceDictionary = new Map([
     ["b", new pieceItem("white-bishop", `${piecePath}/white-bishop.png`)],
     ["B", new pieceItem("black-bishop", `${piecePath}/black-bishop.png`)],
 
-    ["q", new pieceItem("white-queen", `${piecePath}/white-queen.png`)],
-    ["Q", new pieceItem("black-queen", `${piecePath}/black-queen.png`)],
+    ["q", new pieceItem("white-queen", `${piecePath}/white-queen.png`, getQueenMoveIndexes)],
+    ["Q", new pieceItem("black-queen", `${piecePath}/black-queen.png`, getQueenMoveIndexes)],
 
-    ["r", new pieceItem("white-rook", `${piecePath}/white-rook.png`)],
-    ["R", new pieceItem("black-rook", `${piecePath}/black-rook.png`)],
+    ["r", new pieceItem("white-rook", `${piecePath}/white-rook.png`, getRookMoveIndexes)],
+    ["R", new pieceItem("black-rook", `${piecePath}/black-rook.png`, getRookMoveIndexes)],
 
     ["n", new pieceItem("white-knight", `${piecePath}/white-knight.png`)],
     ["N", new pieceItem("black-knight", `${piecePath}/black-knight.png`)],
@@ -46,10 +46,121 @@ function isIndexOnBoard(index) {
     return (index > -1) && (index < boardSize);
 }
 
+function hasPiece(index) {
+    const squareElement = document.getElementById(`square_${index}`);
+    return (squareElement.childNodes.length > 1)
+}
+
+function canTake(fenNotation, index) {
+    const isWhite = fenNotation === fenNotation.toLowerCase();
+
+    if (hasPiece(index)) {
+        const squareElement = document.getElementById(`square_${index}`);
+        const child = squareElement.firstElementChild;
+        const classList = child.classList;
+
+        return (isWhite && classList.contains('black')) || (!isWhite && classList.contains('white'));
+    }
+
+    return false;
+}
+
+function getQueenMoveIndexes(fenNotation, currentIndex) {
+    const current2D = get2D(currentIndex);
+    let new2D = current2D;
+    const isWhite = fenNotation === fenNotation.toLowerCase();
+
+    let validMoves = [];
+
+    validMoves.push(...getRookMoveIndexes('', currentIndex));
+
+    return validMoves;
+}
+
+function getRookMoveIndexes(fenNotation, currentIndex) {
+    const current2D = get2D(currentIndex);
+
+    let validMoves = [];
+
+    for (let toRight = current2D[0] + 1; toRight < boardSideLength; toRight++) {
+        const newIndex = getIndex(toRight, current2D[1]);
+
+        const hasPieceBool = hasPiece(newIndex), canTakeBoolean = canTake(fenNotation, newIndex);
+
+        if (!hasPieceBool || canTakeBoolean) {
+            validMoves.push(newIndex);
+            if(canTakeBoolean){
+                break;
+                }
+        } else {
+            break;
+        }
+    }
+    for (let toLeft = current2D[0] - 1; toLeft >= 0; toLeft--) {
+        const newIndex = getIndex(toLeft, current2D[1]);
+
+        const hasPieceBool = hasPiece(newIndex), canTakeBoolean = canTake(fenNotation, newIndex);
+
+        if (!hasPieceBool || canTakeBoolean) {
+            validMoves.push(newIndex);
+            if(canTakeBoolean){
+                break;
+                }
+        } else {
+            break;
+        }
+    }
+
+    for (let toUp = current2D[1] - 1; toUp >= 0; toUp--) {
+        const newIndex = getIndex(current2D[0], toUp);
+
+        const hasPieceBool = hasPiece(newIndex), canTakeBoolean = canTake(fenNotation, newIndex);
+
+        if (!hasPieceBool || canTakeBoolean) {
+            validMoves.push(newIndex);
+            if(canTakeBoolean){
+                break;
+                }
+        } else {
+            break;
+        }
+    }
+    for (let toDown = current2D[1] + 1; toDown < boardSideLength; toDown++) {
+        const newIndex = getIndex(current2D[0], toDown);
+
+        const hasPieceBool = hasPiece(newIndex), canTakeBoolean = canTake(fenNotation, newIndex);
+
+        if (!hasPieceBool || canTakeBoolean) {
+            validMoves.push(newIndex);
+            if (canTakeBoolean) {
+                break;
+            }
+        } else {
+            break;
+        }
+    }
+
+    //for (let y = 0; y < boardSideLength; y++) {
+    //    for (let x = 0; x < boardSideLength; x++) {
+
+    //        if ((x === current2D[0]) ^ (y === current2D[1])) {
+
+    //            const newIndex = getIndex(x, y);
+    //            if (isIndexOnBoard(newIndex)) {
+    //                validMoves.push(newIndex);
+    //            }
+
+    //        }
+
+    //    }
+    //}
+
+    return validMoves;
+}
+
 function getPawnMoveIndexes(fenNotation, currentIndex) {
     const current2D = get2D(currentIndex);
     let new2D = current2D;
-
     const isWhite = fenNotation === fenNotation.toLowerCase();
 
     if (isWhite) {
@@ -173,6 +284,7 @@ function createBoardPieces(inputFen) {
         } else {
             const pieceDictionaryValue = pieceDictionary.get(currentLetter);
 
+            const isWhite = currentLetter === currentLetter.toLowerCase();
 
             const squareElement = document.getElementById(`square_${boardIndex}`);
 
@@ -183,7 +295,9 @@ function createBoardPieces(inputFen) {
             } else {
                 const currentBoardIndex = boardIndex;
 
-                const newPiece = createFragment(`<img src="${pieceDictionaryValue.pieceImageURL}" class="boardPiece" style="width:80%;"> </img>`);
+                const colourName = isWhite ? "white" : "black";
+
+                const newPiece = createFragment(`<img src="${pieceDictionaryValue.pieceImageURL}" class="boardPiece ${colourName}" style="width:80%;"> </img>`);
                 newPiece.addEventListener("mousedown", () => {
                     isMouseDown = true;
                     selectedIndex = currentBoardIndex;
