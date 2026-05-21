@@ -1,3 +1,5 @@
+let isWhiteMove = true;
+
 function createFragment(itemHTML) {
     const parser = new DOMParser();
     return parser.parseFromString(itemHTML, 'text/html').body.firstElementChild;
@@ -26,8 +28,8 @@ let pieceDictionary = new Map([
     ["p", new pieceItem("white-pawn", `${piecePath}/white-pawn.png`, getPawnMoveIndexes)],
     ["P", new pieceItem("black-pawn", `${piecePath}/black-pawn.png`, getPawnMoveIndexes)],
 
-    ["b", new pieceItem("white-bishop", `${piecePath}/white-bishop.png`)],
-    ["B", new pieceItem("black-bishop", `${piecePath}/black-bishop.png`)],
+    ["b", new pieceItem("white-bishop", `${piecePath}/white-bishop.png`, getBishopMoveIndexes)],
+    ["B", new pieceItem("black-bishop", `${piecePath}/black-bishop.png`, getBishopMoveIndexes)],
 
     ["q", new pieceItem("white-queen", `${piecePath}/white-queen.png`, getQueenMoveIndexes)],
     ["Q", new pieceItem("black-queen", `${piecePath}/black-queen.png`, getQueenMoveIndexes)],
@@ -35,44 +37,168 @@ let pieceDictionary = new Map([
     ["r", new pieceItem("white-rook", `${piecePath}/white-rook.png`, getRookMoveIndexes)],
     ["R", new pieceItem("black-rook", `${piecePath}/black-rook.png`, getRookMoveIndexes)],
 
-    ["n", new pieceItem("white-knight", `${piecePath}/white-knight.png`)],
-    ["N", new pieceItem("black-knight", `${piecePath}/black-knight.png`)],
+    ["n", new pieceItem("white-knight", `${piecePath}/white-knight.png`, getHorseMoveIndexes)],
+    ["N", new pieceItem("black-knight", `${piecePath}/black-knight.png`, getHorseMoveIndexes)],
 
-    ["k", new pieceItem("white-king", `${piecePath}/white-king.png`)],
-    ["K", new pieceItem("black-king", `${piecePath}/black-king.png`)],
+    ["k", new pieceItem("white-king", `${piecePath}/white-king.png`, getKingMoveIndexes)],
+    ["K", new pieceItem("black-king", `${piecePath}/black-king.png`, getKingMoveIndexes)],
 ]);
 
 function isIndexOnBoard(index) {
     return (index > -1) && (index < boardSize);
 }
 
+function isYourMove(fenNotation) {
+    const isWhite = !!(fenNotation === fenNotation.toLowerCase());
+
+    return (isWhite & isWhiteMove) | (!isWhite & !isWhiteMove);
+}
+
+function isCoordinateOnEdge(coord) {
+    return (coord[0] === 0) | (coord[0] === (boardSideLength - 1));
+}
+
+function isIndexOnEdge(index) {
+
+    let onEdge = false;
+    for (let row = 1; row <= boardSideLength; row++) {
+        const edgeIndexForRow = row * 8 - 1;
+
+        if (edgeIndexForRow === index) {
+            onEdge = true;
+            break;
+        }
+    }
+
+    return (index % 8 == 0) | (onEdge);
+}
+
 function hasPiece(index) {
     const squareElement = document.getElementById(`square_${index}`);
-    return (squareElement.childNodes.length > 1)
+    return !!(squareElement.childNodes.length > 1)
+}
+
+function xor(a, b) {
+    return ((a & !b) | (b & !a));
 }
 
 function canTake(fenNotation, index) {
-    const isWhite = fenNotation === fenNotation.toLowerCase();
+    const isWhite = !!(fenNotation === fenNotation.toLowerCase());
 
     if (hasPiece(index)) {
         const squareElement = document.getElementById(`square_${index}`);
         const child = squareElement.firstElementChild;
-        const classList = child.classList;
 
-        return (isWhite && classList.contains('black')) || (!isWhite && classList.contains('white'));
+        return !!((isWhite & child.dataset.piececolour === "black") | (!isWhite & child.dataset.piececolour === "white"));
     }
 
     return false;
 }
 
+function getBishopMoveIndexes(fenNotation, currentIndex) {
+    const current2D = get2D(currentIndex);
+    
+    let validMoves = [];
+
+    for (let bottomRight = 1; bottomRight < boardSideLength; bottomRight++) {
+        const new2D = [current2D[0] + bottomRight, current2D[1] + bottomRight];
+        const newIndex = getIndex(new2D[0], new2D[1]);
+
+        if (new2D[0] < 0 | new2D[0] >= boardSideLength) break;
+
+        if (!isIndexOnBoard(newIndex)) break;
+
+        const hasPieceBool = hasPiece(newIndex), canTakeBoolean = canTake(fenNotation, newIndex);
+
+        if (!hasPieceBool || canTakeBoolean) {
+            validMoves.push(newIndex);
+            if (canTakeBoolean) {
+                break;
+            }
+        } else {
+            break;
+        }
+
+        if (isIndexOnEdge(newIndex)) break;
+    }
+
+    for (let topLeft = 1; topLeft < boardSideLength; topLeft++) {
+        const new2D = [current2D[0] - topLeft, current2D[1] - topLeft];
+        const newIndex = getIndex(new2D[0], new2D[1]);
+
+        if (new2D[0] < 0 | new2D[0] >= boardSideLength) break;
+
+        if (!isIndexOnBoard(newIndex)) break;
+
+        const hasPieceBool = hasPiece(newIndex), canTakeBoolean = canTake(fenNotation, newIndex);
+
+        if (!hasPieceBool || canTakeBoolean) {
+            validMoves.push(newIndex);
+            if (canTakeBoolean) {
+                break;
+            }
+        } else {
+            break;
+        }
+
+        if (isIndexOnEdge(newIndex)) break;
+    }
+
+    for (let topRight = 1; topRight < boardSideLength; topRight++) {
+        const new2D = [current2D[0] + topRight, current2D[1] - topRight];
+        const newIndex = getIndex(new2D[0], new2D[1]);
+
+        if (new2D[0] < 0 | new2D[0] >= boardSideLength) break;
+
+        if (!isIndexOnBoard(newIndex)) break;
+
+        const hasPieceBool = hasPiece(newIndex), canTakeBoolean = canTake(fenNotation, newIndex);
+
+        if (!hasPieceBool || canTakeBoolean) {
+            validMoves.push(newIndex);
+            if (canTakeBoolean) {
+                break;
+            }
+        } else {
+            break;
+        }
+
+        if (isIndexOnEdge(newIndex)) break;
+    }
+
+    for (let bottomLeft = 1; bottomLeft < boardSideLength; bottomLeft++) {
+        const new2D = [current2D[0] - bottomLeft, current2D[1] + bottomLeft];
+        const newIndex = getIndex(new2D[0], new2D[1]);
+
+        if (new2D[0] < 0 | new2D[0] >= boardSideLength) break;
+
+        if (!isIndexOnBoard(newIndex)) break;
+
+        const hasPieceBool = hasPiece(newIndex), canTakeBoolean = canTake(fenNotation, newIndex);
+
+        if (!hasPieceBool || canTakeBoolean) {
+            validMoves.push(newIndex);
+            if (canTakeBoolean) {
+                break;
+            }
+        } else {
+            break;
+        }
+
+        if (isIndexOnEdge(newIndex)) break;
+    }
+
+    return validMoves;
+}
+
 function getQueenMoveIndexes(fenNotation, currentIndex) {
     const current2D = get2D(currentIndex);
-    let new2D = current2D;
-    const isWhite = fenNotation === fenNotation.toLowerCase();
+    const isWhite = !!(fenNotation === fenNotation.toLowerCase());
 
     let validMoves = [];
 
-    validMoves.push(...getRookMoveIndexes('', currentIndex));
+    validMoves.push(...getRookMoveIndexes(fenNotation, currentIndex));
+    validMoves.push(...getBishopMoveIndexes(fenNotation, currentIndex));
 
     return validMoves;
 }
@@ -140,44 +266,89 @@ function getRookMoveIndexes(fenNotation, currentIndex) {
         }
     }
 
-    //for (let y = 0; y < boardSideLength; y++) {
-    //    for (let x = 0; x < boardSideLength; x++) {
-
-    //        if ((x === current2D[0]) ^ (y === current2D[1])) {
-
-    //            const newIndex = getIndex(x, y);
-    //            if (isIndexOnBoard(newIndex)) {
-    //                validMoves.push(newIndex);
-    //            }
-
-    //        }
-
-    //    }
-    //}
-
     return validMoves;
 }
 
 function getPawnMoveIndexes(fenNotation, currentIndex) {
     const current2D = get2D(currentIndex);
-    let new2D = current2D;
-    const isWhite = fenNotation === fenNotation.toLowerCase();
+    const isWhite = !!(fenNotation === fenNotation.toLowerCase());
 
-    if (isWhite) {
-        new2D[1] -= 1;
-    } else {
-        new2D[1] += 1;
+    let isValid = [];
+
+    const colourMultiplier = isWhite ? -1 : 1;
+
+    let toCheck = [[0, 1 * colourMultiplier], [-1, 1 * colourMultiplier], [1, 1 * colourMultiplier]];
+
+    if (selectedElement.dataset.hasmoved === "false") {
+        const ahead = getIndex(current2D[0], current2D[1] + (1 * colourMultiplier));
+
+        if (!hasPiece(ahead)) {
+            toCheck.push([0, 2 * colourMultiplier]);
+        }
     }
 
+    for (const add2D of toCheck) {
+        const new2D = [current2D[0] + add2D[0], current2D[1] + add2D[1]];
+        const newIndex = getIndex(new2D[0], new2D[1]);
+        if ((isIndexOnBoard(newIndex)) & (new2D[0] >= 0 & new2D[0] < boardSideLength)) {
 
-    const newIndex = getIndex(new2D[0], new2D[1]);
-    if (isIndexOnBoard(newIndex)) {
-        return [newIndex];
+            const canTakeBoolean = !!canTake(fenNotation, newIndex);
+            const isForward = ((add2D[0] === 0 & add2D[1] === (1 * colourMultiplier))) | ((add2D[0] === 0 & add2D[1] === (2 * colourMultiplier)));
+
+            if (!!xor(canTakeBoolean, isForward) | (!hasPiece(newIndex) && canTakeBoolean)) {
+                isValid.push(newIndex);
+            }
+        }
     }
 
-    return [-1];
+    return isValid;
 }
 
+function getHorseMoveIndexes(fenNotation, currentIndex) {
+    const current2D = get2D(currentIndex);
+    const relative2DMovement = [[-1, -2], [1, -2], [2, -1], [2, 1], [-2, -1], [-2, 1], [1, 2], [-1, 2]];
+
+    let moveList = [];
+
+    for (const relativeMove of relative2DMovement) {
+        const new2D = [current2D[0] + relativeMove[0], current2D[1] + relativeMove[1]];
+
+        if (new2D[0] < 0 | new2D[0] >= boardSideLength) continue;
+
+        const newIndex = getIndex(new2D[0], new2D[1]);
+        if (!isIndexOnBoard(newIndex)) continue;
+        if (hasPiece(newIndex) & !canTake(fenNotation, newIndex)) continue;
+
+
+        moveList.push(newIndex);
+    }
+
+    return moveList;
+}
+
+function getKingMoveIndexes(fenNotation, currentIndex) {
+    const current2D = get2D(currentIndex);
+
+    let moveList = [];
+
+    for (let row = -1; row < 2; row++) {
+        for (let column = -1; column < 2; column++) {
+            if (row === 0 && column === 0) continue;
+
+            const new2D = [current2D[0] + column, current2D[1] + row];
+            if (new2D[0] < 0 && new2D[0] >= boardSideLength) continue;
+
+            const newIndex = getIndex(new2D[0], new2D[1]);
+            if (!isIndexOnBoard(newIndex)) continue;
+
+            if (!hasPiece(newIndex) | (canTake(fenNotation, newIndex))) {
+                moveList.push(newIndex);
+            }
+        }
+    }
+
+    return moveList;
+}
 
 const boardSquaresElement = document.getElementById("boardSquares");
 //const boardPiecesElement = document.getElementById("boardPieces");
@@ -297,13 +468,25 @@ function createBoardPieces(inputFen) {
 
                 const colourName = isWhite ? "white" : "black";
 
-                const newPiece = createFragment(`<img src="${pieceDictionaryValue.pieceImageURL}" class="boardPiece ${colourName}" style="width:80%;"> </img>`);
+                const newPiece = createFragment(`<img src="${pieceDictionaryValue.pieceImageURL}" data-piececolour="${colourName}" data-hasmoved="false" data-piecefen="${currentLetter}" class="boardPiece" style="width:80%;"> </img>`);
+
                 newPiece.addEventListener("mousedown", () => {
+                    if(!isYourMove(currentLetter)) return;
+                    
                     isMouseDown = true;
                     selectedIndex = currentBoardIndex;
                     selectedElement = newPiece;
                     selectedFen = currentLetter;
                 });
+                newPiece.addEventListener("touchstart", () => {
+                    if(!isYourMove(currentLetter)) return;
+
+                    isMouseDown = true;
+                    selectedIndex = currentBoardIndex;
+                    selectedElement = newPiece;
+                    selectedFen = currentLetter;
+                });
+
 
                 squareElement.appendChild(newPiece);
             }
@@ -317,7 +500,8 @@ function createBoardPieces(inputFen) {
 createBoardSquares();
 
 const startBoardFen = "RNBQKBNRPPPPPPPP////pppppppprnbqkbnr";
-createBoardPieces(startBoardFen);
+let currentBoardFen = startBoardFen;
+createBoardPieces(currentBoardFen);
 
 let isMouseDown = false;
 let selectedIndex = -1;
@@ -338,8 +522,8 @@ document.onmousemove = (e) => {
             selectedElement.style.transform = "Translate(-50%, -50%)";
         }
 
-        const new2Ds = pieceDictionary.get(selectedFen).getValidMoveIndexes(selectedFen, selectedIndex);
-        highlightSquares(new2Ds);
+        const newIndexes = pieceDictionary.get(selectedFen).getValidMoveIndexes(selectedFen, selectedIndex);
+        highlightSquares(newIndexes);
 
         selectedElement.style.left = mouseX + "px";
         selectedElement.style.top = mouseY + "px";
@@ -364,8 +548,41 @@ function isMoveValid(newParentID, validTileIndexes) {
     return false;
 }
 
+function getCurrentBoardFen() {
+    let newFen = "";
+    let sinceLastPiece = 0;
+
+    for (let index = 0; index < boardSize; index++) {
+        const currentX = index % boardSideLength;
+
+        const cellElement = document.getElementById(`square_${index}`);
+
+        if (currentX === 0 & sinceLastPiece > 0) {
+            sinceLastPiece = 0;
+            newFen += "/";
+        }
+
+        if (cellElement.childNodes.length > 1) {
+            if (sinceLastPiece > 0) {
+                newFen += sinceLastPiece.toString();
+                sinceLastPiece = 0;
+            }
+
+            const childFen = cellElement.firstElementChild.dataset.piecefen;
+
+            newFen += childFen;
+        } else {
+            sinceLastPiece++;
+        }
+    }
+
+    console.log(newFen);
+}
+
 document.onmouseup = (e) => {
     const mouseX = e.pageX, mouseY = e.pageY;
+
+    let movedPiece = false;
 
     if (selectedElement != null) {
         if (selectedElement.parentElement == document.body) {
@@ -378,12 +595,19 @@ document.onmouseup = (e) => {
             if (!isMoveValid(newParentID, validTileIndexes)) {
                 newParent = document.getElementById(`square_${selectedIndex}`);
                 newParentID = parseInt(newParent.id.split("_")[1]);
+            } else {
+                //detected that the piece has moved to a new position;
+
+                selectedElement.dataset.hasmoved = "true";
+
+                movedPiece = true;
             }
 
             if (newParent.childNodes.length > 1) {
                 console.log(`${newParent.id} has ${newParent.childNodes.length} children`);
 
                 newParent.removeChild(newParent.childNodes[1]);
+
             }
 
 
@@ -403,12 +627,29 @@ document.onmouseup = (e) => {
             const pieceFen = selectedFen;
 
             selectedElement.addEventListener("mousedown", () => {
+                if (!isYourMove(pieceFen)) return;
+
+                isMouseDown = true;
+                selectedIndex = newParentID;
+                selectedElement = newPieceElement;
+                selectedFen = pieceFen;
+            });
+            selectedElement.addEventListener("touchstart", () => {
+                if (!isYourMove(pieceFen)) return;
+
                 isMouseDown = true;
                 selectedIndex = newParentID;
                 selectedElement = newPieceElement;
                 selectedFen = pieceFen;
             });
         }
+    }
+
+    if (movedPiece) {
+        isWhiteMove = !isWhiteMove;
+        document.getElementById("turnText").textContent = isWhiteMove ? "Whites Turn" : "Blacks Turn";
+
+        getCurrentBoardFen();
     }
 
     changeTileColours();
