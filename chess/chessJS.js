@@ -295,8 +295,12 @@ function getPawnMoveIndexes(fenNotation, currentIndex) {
             const canTakeBoolean = !!canTake(fenNotation, newIndex);
             const isForward = ((add2D[0] === 0 & add2D[1] === (1 * colourMultiplier))) | ((add2D[0] === 0 & add2D[1] === (2 * colourMultiplier)));
 
-            if((canTakeBoolean & !isForward) | (!canTakeBoolean & isForward)) {
+            if((canTakeBoolean & !isForward)) {
                isValid.push(newIndex); 
+            }
+
+            if(!hasPiece(newIndex) & isForward){
+                isValid.push(newIndex);
             }
             
             // if (!!xor(canTakeBoolean, isForward) | (!hasPiece(newIndex) && canTakeBoolean)) {
