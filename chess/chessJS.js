@@ -89,7 +89,7 @@ function canTake(fenNotation, index) {
         const squareElement = document.getElementById(`square_${index}`);
         const child = squareElement.firstElementChild;
 
-        return !!((isWhite & child.dataset.piececolour === "black") | (!isWhite & child.dataset.piececolour === "white"));
+        return !!((isWhite & (child.dataset.piececolour === "black")) | (!isWhite & (child.dataset.piececolour === "white")));
     }
 
     return false;
